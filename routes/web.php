@@ -1,5 +1,11 @@
 <?php
 
+use App\Http\Controllers\Antrian;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'home');
+/**-----------------------
+ * Antrian Routes
+ * Base Route: /
+ *
+ *------------------------**/
+Route::get('/', [Antrian::class, 'index']);
