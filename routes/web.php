@@ -9,3 +9,4 @@ use Illuminate\Support\Facades\Route;
  *
  *------------------------**/
 Route::get('/', [Antrian::class, 'index']);
+Route::get('/cetak/{id}', [Antrian::class, 'show']);

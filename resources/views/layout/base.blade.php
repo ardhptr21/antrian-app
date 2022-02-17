@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>@yield('title', 'Antrian App')</title>
+    <title>@isset($title){{ $title }} @else Antrian App @endisset</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 
@@ -13,6 +13,8 @@
     <main class="">
         @yield('content')
     </main>
+
+    <script src="{{ asset('js/script.js') }}"></script>
 </body>
 
 </html>

@@ -26,7 +26,7 @@
                 <option>AstraZaneca</option>
             </x-forms.select>
 
-            <x-Buttons.primary type="submit" class="bg-indigo-500 hover:bg-indigo-400 text-white">Cetak
+            <x-Buttons.primary type="submit" class="bg-indigo-500 hover:bg-indigo-400 text-white">Ambil
             </x-Buttons.primary>
         </form>
     </div>

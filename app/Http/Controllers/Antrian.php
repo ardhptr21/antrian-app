@@ -10,4 +10,9 @@ class Antrian extends Controller
     {
         return view('antrian.index');
     }
+
+    public function show()
+    {
+        return view('antrian.cetak');
+    }
 }
