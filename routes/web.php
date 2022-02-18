@@ -19,3 +19,4 @@ Route::get('/cetak/{id}', [AntrianController::class, 'show']);
  *------------------------**/
 Route::get('/dashboard', [DashboardController::class, 'index']);
 Route::get('/dashboard/vaksin', [DashboardController::class, 'vaksin']);
+Route::get('/dashboard/domisili', [DashboardController::class, 'domisili']);

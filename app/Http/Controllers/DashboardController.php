@@ -15,4 +15,9 @@ class DashboardController extends Controller
     {
         return view('dashboard.vaksin');
     }
+
+    public function domisili()
+    {
+        return view('dashboard.domisili');
+    }
 }

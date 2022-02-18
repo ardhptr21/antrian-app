@@ -1,6 +1,8 @@
 <div class="{{ $class }}">
-    <label class="text-gray-800 font-semibold block my-3 text-md" for="{{ $name }}">{{ $label }}</label>
-    <input class="w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none" type="text" name="{{ $name }}"
+    @isset ($label)
+    <label class="block my-3 font-semibold text-gray-800 text-md" for="{{ $name }}">{{ $label }}</label>
+    @endif
+    <input class="w-full px-4 py-2 bg-gray-100 rounded-lg focus:outline-none" type="{{ $type }}" name="{{ $name }}"
         id="{{ $name }}" placeholder="{{ $placeholder }}" value="{{ $value }}" {{ $attributes }} />
     {{ $slot }}
 </div>
