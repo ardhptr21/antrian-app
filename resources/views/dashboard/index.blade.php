@@ -1,6 +1,8 @@
-@extends('layout.dashboard', ['title' => 'Dashboard Page'])
+@extends('layout.dashboard', ['title' => 'Antrian'])
 
 @section('content')
+<x-dashboard.title title="Dashboard Antrian" description="Kelola dan lihat ringkasan mengenai antrian vaksin" />
+
 <div class="flex flex-wrap gap-x-10">
     <x-dashboard.card-overview title="Jumlah Antrian Hari Ini" value="2">
         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -12,7 +14,7 @@
 </div>
 
 <div class="mt-8">
-    <table class="min-w-full table-auto">
+    <table class="min-w-full overflow-hidden rounded-lg shadow-lg table-auto">
         <x-tables.thead>
             <x-tables.th>No</x-tables.th>
             <x-tables.th>Nama</x-tables.th>

@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\Antrian;
-use App\Http\Controllers\Dashboard;
+use App\Http\Controllers\AntrianController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /**-----------------------
@@ -9,12 +9,13 @@ use Illuminate\Support\Facades\Route;
  * Base Route: /
  *
  *------------------------**/
-Route::get('/', [Antrian::class, 'index']);
-Route::get('/cetak/{id}', [Antrian::class, 'show']);
+Route::get('/', [AntrianController::class, 'index']);
+Route::get('/cetak/{id}', [AntrianController::class, 'show']);
 
 /**-----------------------
  * Dashboard Routes
  * Base Route: /dashboard
  *
  *------------------------**/
-Route::get('/dashboard', [Dashboard::class, 'index']);
+Route::get('/dashboard', [DashboardController::class, 'index']);
+Route::get('/dashboard/vaksin', [DashboardController::class, 'vaksin']);
