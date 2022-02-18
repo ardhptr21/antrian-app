@@ -1,10 +1,10 @@
 @extends('layout.base')
 
 @section('content')
-<x-section class="h-screen bg-indigo-100 flex justify-center items-center">
-    <div class="lg:w-2/5 md:w-1/2 w-2/3">
-        <form class="bg-white p-10 rounded-lg shadow-lg min-w-full">
-            <h1 class="text-center text-2xl mb-6 text-gray-600 font-bold font-sans">Ambil Antrian</h1>
+<x-section class="flex items-center justify-center h-screen bg-indigo-100">
+    <div class="w-2/3 lg:w-2/5 md:w-1/2">
+        <form class="min-w-full p-10 bg-white rounded-lg shadow-lg">
+            <h1 class="mb-6 font-sans text-2xl font-bold text-center text-gray-600">Ambil Antrian</h1>
             <x-forms.input name="nama" label="Nama" type="text" placeholder="Masukkan nama anda" autocomplete="off" />
             <x-forms.input name="umur" label="Umur" type="number" placeholder="Masukkan umur anda" />
 
@@ -26,8 +26,8 @@
                 <option>AstraZaneca</option>
             </x-forms.select>
 
-            <x-Buttons.primary type="submit" class="bg-indigo-500 hover:bg-indigo-400 text-white">Ambil
-            </x-Buttons.primary>
+            <x-buttons.primary type="submit" class="text-white bg-indigo-500 hover:bg-indigo-400">Ambil
+            </x-buttons.primary>
         </form>
     </div>
 </x-section>

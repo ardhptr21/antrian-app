@@ -10,7 +10,7 @@
 </head>
 
 <body class="font-sans antialiased">
-    <main class="">
+    <main>
         @yield('content')
     </main>
 
