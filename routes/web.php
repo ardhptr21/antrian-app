@@ -3,6 +3,7 @@
 use App\Http\Controllers\AntrianController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\VillageController;
 use Illuminate\Support\Facades\Route;
 
 /**-----------------------
@@ -10,7 +11,7 @@ use Illuminate\Support\Facades\Route;
  * Base Route: /
  *
  *------------------------**/
-Route::controller(AntrianController::class)->group(function () {
+Route::controller(AntrianController::class)->middleware('guest')->group(function () {
     Route::get('/', 'index')->name('antrian:index');
     Route::get('/cetak/{id}', 'show')->name('antrian:cetak');
 });
@@ -36,3 +37,13 @@ Route::controller(AuthController::class)->prefix('auth')->middleware('guest')->g
     Route::post('/login', 'attempt')->name('auth:attempt');
 });
 Route::get('/auth/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
+
+/**----------------------------------------------
+ * Village Routes
+ *  Base Route: /village
+ *
+ *---------------------------------------------**/
+Route::controller(VillageController::class)->prefix('village')->middleware('auth')->group(function () {
+    Route::post('/', 'store')->name('village:store');
+    Route::delete('/{village}', 'remove')->name('village:remove');
+});

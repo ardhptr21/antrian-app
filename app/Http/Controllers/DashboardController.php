@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Village;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -18,6 +19,7 @@ class DashboardController extends Controller
 
     public function domisili()
     {
-        return view('dashboard.domisili');
+        $villages = Village::all();
+        return view('dashboard.domisili', compact('villages'));
     }
 }
