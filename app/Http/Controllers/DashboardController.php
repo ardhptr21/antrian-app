@@ -30,9 +30,10 @@ class DashboardController extends Controller
         return view('dashboard.vaksin', compact(['vaccines', 'vaccine']));
     }
 
-    public function domisili()
+    public function domisili(Request $request)
     {
         $villages = Village::all();
-        return view('dashboard.domisili', compact('villages'));
+        $village_selected = Village::with(['neighbourhoods', 'hamlets'])->where('id', $request->village)->first();
+        return view('dashboard.domisili', compact('villages', 'village_selected'));
     }
 }

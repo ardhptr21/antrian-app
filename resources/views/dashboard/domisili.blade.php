@@ -54,45 +54,100 @@
 <div class="flex justify-center gap-5 mt-5">
     <div class="w-full p-5 bg-white rounded-lg">
         <h2 class="text-2xl font-bold text-indigo-500">Tambah RT/RW</h2>
-        <form>
-            <x-forms.select name="desa2" label="Pilih Desa Terkait" placeholder="PILIH DESA">
-                <option value="{{ $villages[0]->id }}" selected>Desa {{ $villages[0]->name }}</option>
-                @foreach ($villages->skip(1) as $village)
-                <option value="{{ $village->id }}">Desa {{ $village->name }}</option>
-                @endforeach
-            </x-forms.select>
 
-            <div class="grid grid-cols-2 gap-5">
-                <div>
-                    <x-forms.input type="number" name="rt" label="RT" placeholder="RT" />
-                    <x-buttons.primary type="submit" class="text-white bg-indigo-500 hover:bg-indigo-400">Tambah
-                    </x-buttons.primary>
-                </div>
-                <div>
-                    <x-forms.input type="number" name="rw" label="RW" placeholder="RW" />
-                    <x-buttons.primary type="submit" class="text-white bg-indigo-500 hover:bg-indigo-400">Tambah
-                    </x-buttons.primary>
-                </div>
-            </div>
-        </form>
+        <div class="grid grid-cols-2 gap-5">
+            <form method="POST" action="{{ route('neighbourhood:store') }}">
+                @csrf
+                <x-forms.select name="village_id" label="Pilih desa untuk RT" placeholder="PILIH DESA"
+                    error="{{ $errors->first('village_id') }}">
+                    @foreach ($villages as $village)
+                    <option value="{{ $village->id }}" @selected(Request::get('village')==$village->id)>Desa {{
+                        $village->name }}</option>
+                    @endforeach
+                </x-forms.select>
+                <x-forms.input type="number" name="neighbourhood" label="RT" placeholder="RT"
+                    error="{{ $errors->first('neighbourhood') }}" />
+                <x-buttons.primary type="submit" class="text-white bg-indigo-500 hover:bg-indigo-400">Tambah
+                </x-buttons.primary>
+
+                @if (session('neighbourhood_error_store'))
+                <x-alert.error>{{ session('neighbourhood_error_store') }}</x-alert.error>
+                @elseif(session('neighbourhood_success_store'))
+                <x-alert.success>{{ session('neighbourhood_success_store') }}</x-alert.success>
+                @endif
+            </form>
+            <form method="POST" action="{{ route('hamlet:store') }}">
+                @csrf
+                <x-forms.select name="village_id" label="Pilih desa untukk RW" placeholder="PILIH DESA"
+                    error="{{ $errors->first('village_id') }}">
+                    @foreach ($villages as $village)
+                    <option value="{{ $village->id }}" @selected(Request::get('village')==$village->id)>Desa {{
+                        $village->name }}</option>
+                    @endforeach
+                </x-forms.select>
+                <x-forms.input type="number" name="hamlet" label="RW" placeholder="RW"
+                    error="{{ $errors->first('hamlet') }}" />
+                <x-buttons.primary type="submit" class="text-white bg-indigo-500 hover:bg-indigo-400">Tambah
+                </x-buttons.primary>
+                @if (session('hamlet_error_store'))
+                <x-alert.error>{{ session('hamlet_error_store') }}</x-alert.error>
+                @elseif(session('hamlet_success_store'))
+                <x-alert.success>{{ session('hamlet_success_store') }}</x-alert.success>
+                @endif
+            </form>
+        </div>
     </div>
     <div class="w-full p-5 overflow-y-auto bg-indigo-100 rounded-lg shadow-inner h-80">
-        <h2 class="text-2xl font-bold text-indigo-500">RT/RW Desa Sasak</h2>
+        <x-forms.select name="village_selection" placeholder="PILIH DESA" class="mb-3">
+            @foreach ($villages as $village)
+            <option value="{{ $village->id }}" @selected(Request::get('village')==$village->id)>Desa {{ $village->name
+                }}</option>
+            @endforeach
+        </x-forms.select>
+
+        @isset($village_selected)
+        <h2 class="text-2xl font-bold text-indigo-500">RT/RW {{ $village_selected->name }}</h2>
         <ul class="grid grid-cols-2 gap-5 mt-5">
             <div class="space-y-5">
                 <h3 class="font-bold">RT</h3>
-                <x-card.list>1</x-card.list>
-                <x-card.list>2</x-card.list>
-                <x-card.list>3</x-card.list>
-                <x-card.list>4</x-card.list>
+                @if($village_selected->neighbourhoods->isNotEmpty())
+                @foreach ($village_selected->neighbourhoods as $neighbourhood )
+                <form action="{{ route('neighbourhood:remove', ['neighbourhood' => $neighbourhood->id]) }}"
+                    method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <x-card.list>{{ $neighbourhood->value }}</x-card.list>
+                </form>
+                @endforeach
+                @else
+                <div class="p-5 mt-5 rounded-md shadow-inner bg-indigo-50">
+                    Maaf, tidak ada data RT yang tersedia
+                </div>
+                @endif
             </div>
+
             <div class="space-y-5">
                 <h3 class="font-bold">RW</h3>
-                <x-card.list>1</x-card.list>
-                <x-card.list>2</x-card.list>
-                <x-card.list>3</x-card.list>
+                @if ($village_selected->hamlets->isNotEmpty())
+                @foreach ($village_selected->hamlets as $hamlet)
+                <form action="{{ route('hamlet:remove', ['hamlet' => $hamlet->id]) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <x-card.list>{{ $hamlet->value }}</x-card.list>
+                </form>
+                @endforeach
+                @else
+                <div class="p-5 mt-5 rounded-md shadow-inner bg-indigo-50">
+                    Maaf, tidak ada data RW yang tersedia
+                </div>
+                @endif
             </div>
         </ul>
+        @else
+        <div class="p-5 mt-5 rounded-md shadow-inner bg-indigo-50">
+            Maaf, anda belum memilih desa
+        </div>
+        @endisset
     </div>
 </div>
 @endif

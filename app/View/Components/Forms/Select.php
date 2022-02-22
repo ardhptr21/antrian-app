@@ -11,18 +11,20 @@ class Select extends Component
     public string $label;
     public string $class;
     public string $placeholder;
+    public string $error;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(string $name, string $label, string $placeholder, string $class = '')
+    public function __construct(string $name, string $placeholder, string $error = '', string $label = '', string $class = '')
     {
         $this->name = $name;
         $this->label = $label;
         $this->class = $class;
         $this->placeholder = $placeholder;
+        $this->error = $error;
     }
 
     /**

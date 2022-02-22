@@ -12,4 +12,13 @@ class Village extends Model
     protected $fillable = [
         'name',
     ];
+
+    public function neighbourhoods()
+    {
+        return $this->hasMany(Neighbourhood::class);
+    }
+    public function hamlets()
+    {
+        return $this->hasMany(Hamlet::class);
+    }
 }
