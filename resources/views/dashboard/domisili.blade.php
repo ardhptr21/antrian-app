@@ -31,7 +31,7 @@
                 <form action="{{ route('village:remove', ['village' => $village->id]) }}" method="POST">
                     @csrf
                     @method('DELETE')
-                    <x-card.list>{{ $village->name }}</x-card.list>
+                    <x-card.list>Desa {{ $village->name }}</x-card.list>
                 </form>
                 @endforeach
             </ul>
@@ -50,15 +50,16 @@
     </div>
 </div>
 
+@if ($villages->isNotEmpty())
 <div class="flex justify-center gap-5 mt-5">
     <div class="w-full p-5 bg-white rounded-lg">
         <h2 class="text-2xl font-bold text-indigo-500">Tambah RT/RW</h2>
         <form>
             <x-forms.select name="desa2" label="Pilih Desa Terkait" placeholder="PILIH DESA">
-                <option selected>Desa Sasak</option>
-                <option>Desa Segrumung</option>
-                <option>Desa Selamet</option>
-                <option>Desa Jatisari</option>
+                <option value="{{ $villages[0]->id }}" selected>Desa {{ $villages[0]->name }}</option>
+                @foreach ($villages->skip(1) as $village)
+                <option value="{{ $village->id }}">Desa {{ $village->name }}</option>
+                @endforeach
             </x-forms.select>
 
             <div class="grid grid-cols-2 gap-5">
@@ -94,5 +95,5 @@
         </ul>
     </div>
 </div>
-
+@endif
 @endsection

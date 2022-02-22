@@ -508,6 +508,21 @@ Ensure the default browser behavior of the `hidden` attribute.
 .max-h-\[28rem\] {
   max-height: 28rem;
 }
+.max-h-\[24rem\] {
+  max-height: 24rem;
+}
+.max-h-\[20rem\] {
+  max-height: 20rem;
+}
+.max-h-96 {
+  max-height: 24rem;
+}
+.max-h-80 {
+  max-height: 20rem;
+}
+.max-h-\[22rem\] {
+  max-height: 22rem;
+}
 .min-h-screen {
   min-height: 100vh;
 }

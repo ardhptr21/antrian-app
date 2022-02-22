@@ -4,8 +4,6 @@
         <p>{{ $description }}</p>
     </div>
     <div class="flex items-center justify-center gap-5">
-        <x-buttons.primary class="text-white bg-red-500 hover:bg-red-400" type="button">Hapus</x-buttons.primary>
-        <x-buttons.primary class="text-white bg-yellow-500 hover:bg-yellow-400" type="button">Edit
-        </x-buttons.primary>
+        {{ $slot }}
     </div>
 </div>

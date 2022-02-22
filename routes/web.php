@@ -3,6 +3,7 @@
 use App\Http\Controllers\AntrianController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\VaccineController;
 use App\Http\Controllers\VillageController;
 use Illuminate\Support\Facades\Route;
 
@@ -46,4 +47,15 @@ Route::get('/auth/logout', [AuthController::class, 'logout'])->middleware('auth'
 Route::controller(VillageController::class)->prefix('village')->middleware('auth')->group(function () {
     Route::post('/', 'store')->name('village:store');
     Route::delete('/{village}', 'remove')->name('village:remove');
+});
+
+/**----------------------------------------------
+ *  Vaccine Routes
+ * Base Route: /vaccine
+ *
+ *---------------------------------------------**/
+Route::controller(VaccineController::class)->prefix('vaccine')->middleware('auth')->group(function () {
+    Route::post('/', 'store')->name('vaccine:store');
+    Route::delete('/{vaccine}', 'remove')->name('vaccine:remove');
+    Route::put('/{vaccine}', 'update')->name('vaccine:update');
 });
