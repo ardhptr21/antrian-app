@@ -8,17 +8,19 @@ window.addEventListener("DOMContentLoaded", () => {
 
     if (villageSelection) {
         villageSelection.addEventListener("change", () =>
-            changeUrl(villageSelection)
+            changeUrl(villageSelection.value)
         );
     }
 
     if (village) {
-        village.addEventListener("change", () => changeUrl(village));
+        village.addEventListener("change", () =>
+            changeUrl(village.options[village.selectedIndex]?.dataset.id)
+        );
     }
 });
 
-function changeUrl(el) {
+function changeUrl(value) {
     const url = new URL(location.href);
-    url.searchParams.set("village", el.value);
+    url.searchParams.set("village", value);
     location.href = url.toString();
 }

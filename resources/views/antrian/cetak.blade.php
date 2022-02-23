@@ -8,15 +8,15 @@
                 <h1 class="py-5 font-semibold text-white uppercase">Nomor Antrian</h1>
             </div>
             <div class="p-8 space-y-5 md:p-10">
-                <h2 class="text-indigo-500 text-8xl">01</h2>
+                <h2 class="text-indigo-500 text-8xl">{{ str_pad($queue->order, 2, '0', STR_PAD_LEFT) }}</h2>
                 <div class="space-y-1">
-                    <h3 class="text-xl font-bold">Ardhi Putra</h3>
-                    <h4 class="text-lg font-bold text-indigo-500">Sinovac</h4>
+                    <h3 class="text-xl font-bold">{{ $queue->name }}</h3>
+                    <h4 class="text-lg font-bold text-indigo-500">{{ $queue->vaccine }}</h4>
                 </div>
                 <div class="w-full h-1 bg-indigo-100 shadow-inner"></div>
                 <div class="mt-10">
-                    <p class="text-sm font-medium md:text-base">Sasak, RT 4 RW 6</p>
-                    <p class="text-xs md:text-sm">12 Januari 2021 - 13:00</p>
+                    <p class="text-sm font-medium md:text-base">{{ $queue->village }}, RT {{ $queue->neighbourhood }} RW {{ $queue->hamlet }}</p>
+                    <p class="text-xs md:text-sm">{{ $queue->created_at->format('d F Y - h:i') }}</p>
                 </div>
                 <small class="inline-block text-xs text-gray-400 md:text-sm">*Berlaku selama periode tanggal antrian
                     dibuat</small>

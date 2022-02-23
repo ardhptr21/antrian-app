@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\AntrianController;
+use App\Http\Controllers\QueueController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HamletController;
@@ -14,9 +14,12 @@ use Illuminate\Support\Facades\Route;
  * Base Route: /
  *
  *------------------------**/
-Route::controller(AntrianController::class)->middleware('guest')->group(function () {
+Route::controller(QueueController::class)->middleware('guest')->group(function () {
     Route::get('/', 'index')->name('antrian:index');
-    Route::get('/cetak/{id}', 'show')->name('antrian:cetak');
+    Route::get('/cetak/{queue}', 'show')->name('antrian:cetak');
+});
+Route::controller(QueueController::class)->middleware('guest')->prefix('queue')->group(function () {
+    Route::post('/', 'store')->name('queue:store');
 });
 
 /**-----------------------
