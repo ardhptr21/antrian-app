@@ -10,9 +10,13 @@
             <div class="p-8 space-y-5 md:p-10">
                 <h2 class="text-indigo-500 text-8xl">01</h2>
                 <div class="space-y-1">
-                    <p class="text-xl font-bold">Ardhi Putra</p>
-                    <p class="text-lg font-bold text-indigo-500">Sinovac</p>
-                    <p class="text-sm md:text-base">12 Januari 2021 - 13:00</p>
+                    <h3 class="text-xl font-bold">Ardhi Putra</h3>
+                    <h4 class="text-lg font-bold text-indigo-500">Sinovac</h4>
+                </div>
+                <div class="w-full h-1 bg-indigo-100 shadow-inner"></div>
+                <div class="mt-10">
+                    <p class="text-sm font-medium md:text-base">Sasak, RT 4 RW 6</p>
+                    <p class="text-xs md:text-sm">12 Januari 2021 - 13:00</p>
                 </div>
                 <small class="inline-block text-xs text-gray-400 md:text-sm">*Berlaku selama periode tanggal antrian
                     dibuat</small>
