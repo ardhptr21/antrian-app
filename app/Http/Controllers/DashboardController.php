@@ -2,15 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Queue;
 use App\Models\Vaccine;
 use App\Models\Village;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('dashboard.index');
+        $filters = $request->only(['village', 'vaccine', 'date']);
+        if (!isset($filters['date'])) {
+            $filters['date'] = date('Y-m-d');
+        }
+        $queues = Queue::filter($filters)->get();
+        $villages = Village::all();
+        $vaccines = Vaccine::all();
+
+
+        return view('dashboard.index', compact('queues', 'villages', 'vaccines'));
     }
 
     public function vaksin(Request $request)
