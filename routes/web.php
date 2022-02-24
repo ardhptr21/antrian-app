@@ -1,5 +1,11 @@
 <?php
 
+use Illuminate\Support\Facades\URL;
+
+if (env('APP_ENV') === 'production') {
+    URL::forceScheme('https');
+}
+
 use App\Http\Controllers\QueueController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
