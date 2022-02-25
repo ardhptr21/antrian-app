@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Activity;
 use App\Models\Queue;
 use App\Models\Vaccine;
 use App\Models\Village;
 use Illuminate\Http\Request;
+
+use function PHPUnit\Framework\isNull;
 
 class QueueController extends Controller
 {
@@ -33,6 +36,26 @@ class QueueController extends Controller
 
     public function store(Request $request)
     {
+
+        $queues = Queue::today()->get();
+        $activity = Activity::today()->first();
+
+        if ($activity->quota === $queues->count()) {
+            return back()->with('queue_error_store', 'Jumlah antrian sudah penuh');
+        }
+
+        $batch = 1;
+        $perBatchCount = intval(ceil($activity->quota / $activity->batch));
+        if ($activity->batch > 1) {
+            for ($i = 1; $i <= $activity->batch; $i++) {
+                $count = $queues->filter(fn ($queue) => $queue->batch == $i)->count();
+                if ($count < $perBatchCount) {
+                    $batch = $i;
+                    break;
+                }
+            }
+        }
+
         $validated = $request->validate([
             'name' => 'required|string|max:100',
             'age' => 'required|numeric',
@@ -43,7 +66,8 @@ class QueueController extends Controller
             'nik' => 'required|numeric|digits:16',
         ]);
 
-        $latest_queue = Queue::whereDate('created_at',  today())->latest()->first();
+        $latest_queue = $queues->filter(fn ($value) => $value->batch == $batch)->last();
+
 
         if ($latest_queue) {
             $validated['order'] = $latest_queue->order + 1;
@@ -51,9 +75,14 @@ class QueueController extends Controller
             $validated['order'] = 1;
         }
 
+        $validated['batch'] = $batch;
         $queue = Queue::create($validated);
 
         if ($queue) {
+            if ($activity->quota === $queues->count() + 1) {
+                $activity->update(['is_open' => false]);
+            }
+
             return redirect()->route('antrian:cetak', ['queue' => $queue->id]);
         }
 

@@ -39,10 +39,12 @@
                 <x-tables.thead>
                     <x-tables.th>No</x-tables.th>
                     <x-tables.th>Nama</x-tables.th>
+                    <x-tables.th>NIK</x-tables.th>
                     <x-tables.th>Desa</x-tables.th>
                     <x-tables.th>RW</x-tables.th>
                     <x-tables.th>RT</x-tables.th>
                     <x-tables.th>Model Vaksin</x-tables.th>
+                    <x-tables.th>Kloter</x-tables.th>
                     <x-tables.th>No Antrian</x-tables.th>
                 </x-tables.thead>
                 <tbody class="bg-gray-200">
@@ -50,10 +52,12 @@
                         <x-tables.tr-body>
                             <x-tables.td>{{ $loop->iteration }}</x-tables.td>
                             <x-tables.td>{{ $queue->name }}</x-tables.td>
+                            <x-tables.td>{{ $queue->nik }}</x-tables.td>
                             <x-tables.td>{{ $queue->village }}</x-tables.td>
                             <x-tables.td>{{ $queue->hamlet }}</x-tables.td>
                             <x-tables.td>{{ $queue->neighbourhood }}</x-tables.td>
                             <x-tables.td>{{ $queue->vaccine }}</x-tables.td>
+                            <x-tables.td>{{ $queue->batch }}</x-tables.td>
                             <x-tables.td>{{ $queue->order }}</x-tables.td>
                         </x-tables.tr-body>
                     @endforeach

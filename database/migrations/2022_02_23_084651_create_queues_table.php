@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name', 100);
             $table->integer('age');
             $table->string('nik', 16);
+            $table->integer('batch')->default(1);
             $table->string('village');
             $table->integer('neighbourhood');
             $table->integer('hamlet');
