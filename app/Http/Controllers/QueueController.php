@@ -40,6 +40,7 @@ class QueueController extends Controller
             'hamlet' => 'required|numeric',
             'neighbourhood' => 'required|numeric',
             'vaccine' => 'required|string',
+            'nik' => 'required|numeric|digits:16',
         ]);
 
         $latest_queue = Queue::whereDate('created_at',  today())->latest()->first();

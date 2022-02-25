@@ -14,8 +14,10 @@
                 @endif
                 @endforeach
             </x-forms.select>
+
             <x-forms.input name="name" label="Nama" type="text" placeholder="Masukkan nama anda" autocomplete="off" error="{{ $errors->first('name') }}" />
             <x-forms.input name="age" label="Umur" type="number" placeholder="Masukkan umur anda" error="{{ $errors->first('age') }}" />
+            <x-forms.input name="nik" label="NIK" type="text" placeholder="Masukkan NIK anda" error="{{ $errors->first('nik') }}" autocomplete="off" />
 
 
             @if ($village_selected)

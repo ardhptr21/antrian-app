@@ -18,6 +18,7 @@ class Queue extends Model
         'hamlet',
         'vaccine',
         'order',
+        'nik'
     ];
 
     public function scopeFilter(Builder $query, array $filters)

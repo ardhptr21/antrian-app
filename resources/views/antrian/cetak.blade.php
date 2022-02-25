@@ -11,6 +11,7 @@
                 <h2 class="text-indigo-500 text-8xl">{{ str_pad($queue->order, 2, '0', STR_PAD_LEFT) }}</h2>
                 <div class="space-y-1">
                     <h3 class="text-xl font-bold">{{ $queue->name }}</h3>
+                    <p class="text-base text-gray-400">{{ $queue->nik }}</p>
                     <h4 class="text-lg font-bold text-indigo-500">{{ $queue->vaccine }}</h4>
                 </div>
                 <div class="w-full h-1 bg-indigo-100 shadow-inner"></div>
