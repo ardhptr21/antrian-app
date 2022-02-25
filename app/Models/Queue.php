@@ -35,4 +35,9 @@ class Queue extends Model
             return $query->whereDate('created_at', $date);
         });
     }
+
+    public function scopeToday(Builder $query)
+    {
+        return $query->whereDate('created_at', today());
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Activity;
 use App\Models\Queue;
 use App\Models\Vaccine;
 use App\Models\Village;
@@ -21,6 +22,13 @@ class DashboardController extends Controller
 
 
         return view('dashboard.index', compact('queues', 'villages', 'vaccines'));
+    }
+
+    public function aktivitas()
+    {
+        $activity = Activity::today()->first();
+        $queues = Queue::today()->get();
+        return view('dashboard.aktivitas', compact('activity', 'queues'));
     }
 
     public function vaksin(Request $request)

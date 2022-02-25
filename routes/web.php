@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActivityController;
 use Illuminate\Support\Facades\URL;
 
 if (env('APP_ENV') === 'production') {
@@ -13,6 +14,7 @@ use App\Http\Controllers\HamletController;
 use App\Http\Controllers\NeighbourhoodController;
 use App\Http\Controllers\VaccineController;
 use App\Http\Controllers\VillageController;
+use App\Http\Middleware\HasActivityAndOpen;
 use Illuminate\Support\Facades\Route;
 
 /**-----------------------
@@ -21,10 +23,10 @@ use Illuminate\Support\Facades\Route;
  *
  *------------------------**/
 Route::controller(QueueController::class)->middleware('guest')->group(function () {
-    Route::get('/', 'index')->name('antrian:index');
+    Route::get('/', 'index')->name('antrian:index')->middleware(HasActivityAndOpen::class);
     Route::get('/cetak/{queue}', 'show')->name('antrian:cetak');
 });
-Route::controller(QueueController::class)->middleware('guest')->prefix('queue')->group(function () {
+Route::controller(QueueController::class)->middleware(['guest', HasActivityAndOpen::class])->prefix('queue')->group(function () {
     Route::post('/', 'store')->name('queue:store');
 });
 
@@ -35,6 +37,7 @@ Route::controller(QueueController::class)->middleware('guest')->prefix('queue')-
  *------------------------**/
 Route::controller(DashboardController::class)->prefix('dashboard')->middleware('auth')->group(function () {
     Route::get('/', 'index')->name('dashboard:index');
+    Route::get('/aktivitas', 'aktivitas')->name('dashboard:aktivitas');
     Route::get('/vaksin', 'vaksin')->name('dashboard:vaksin');
     Route::get('/domisili', 'domisili')->name('dashboard:domisili');
 });
@@ -49,6 +52,16 @@ Route::controller(AuthController::class)->prefix('auth')->middleware('guest')->g
     Route::post('/login', 'attempt')->name('auth:attempt');
 });
 Route::get('/auth/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
+
+/**----------------------------------------------
+ * Activity Routes
+ * Base Route: /activity
+ *
+ *---------------------------------------------**/
+Route::controller(ActivityController::class)->prefix('activity')->middleware('auth')->group(function () {
+    Route::post('/', 'store')->name('activity:store');
+    Route::put('/{activity}', 'status')->name('activity:status');
+});
 
 /**----------------------------------------------
  * Village Routes
