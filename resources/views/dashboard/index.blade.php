@@ -33,8 +33,25 @@
         </div>
     </div>
 
+
     @if ($queues->isNotEmpty())
-        <div class="max-w-5xl mt-3 overflow-x-auto rounded-lg shadow-lg">
+        <div class="inline-block">
+            <a
+                href="{{ route('queue:export', [
+                    'village' => Request::get('village'),
+                    'vaccine' => Request::get('vaccine'),
+                    'date' => Request::get('date') ?? date('Y-m-d'),
+                ]) }}">
+                <x-buttons.primary class="flex items-center justify-center gap-3 text-white bg-green-700" type="button"><svg
+                        class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                        </path>
+                    </svg> Export</x-buttons.primary>
+            </a>
+        </div>
+        <div class="max-w-5xl mt-5 overflow-x-auto rounded-lg shadow-lg">
             <table class="w-full overflow-hidden text-center rounded-lg table-auto">
                 <x-tables.thead>
                     <x-tables.th>No</x-tables.th>

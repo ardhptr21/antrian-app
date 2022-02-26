@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\QueuesExport;
 use App\Models\Activity;
 use App\Models\Queue;
 use App\Models\Vaccine;
 use App\Models\Village;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 use function PHPUnit\Framework\isNull;
 
@@ -87,5 +89,12 @@ class QueueController extends Controller
         }
 
         return back()->with('queue_error_store', 'Gagal membuat antrian');
+    }
+
+    public function export(Request $request)
+    {
+        $filters = $request->only('village', 'vaccine', 'date');
+        $queues = Queue::filter($filters)->get();
+        return Excel::download(new QueuesExport($queues), 'antrian.xlsx');
     }
 }

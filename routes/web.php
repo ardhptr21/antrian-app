@@ -28,6 +28,7 @@ Route::controller(QueueController::class)->middleware('guest')->group(function (
 });
 Route::controller(QueueController::class)->middleware(['guest', HasActivityAndOpen::class])->prefix('queue')->group(function () {
     Route::post('/', 'store')->name('queue:store');
+    Route::get('/export', 'export')->name('queue:export')->withoutMiddleware(['guest', HasActivityAndOpen::class])->middleware('auth');
 });
 
 /**-----------------------
