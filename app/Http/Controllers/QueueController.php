@@ -95,6 +95,7 @@ class QueueController extends Controller
     {
         $filters = $request->only('village', 'vaccine', 'date');
         $queues = Queue::filter($filters)->get();
-        return Excel::download(new QueuesExport($queues), 'antrian.xlsx');
+        $date_format = date_format(date_create($filters['date']), 'd F Y');
+        return Excel::download(new QueuesExport($queues), "Data Antrian Vaksin $date_format.xlsx");
     }
 }
