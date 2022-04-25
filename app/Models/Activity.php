@@ -20,4 +20,9 @@ class Activity extends Model
     {
         return $query->whereDate('created_at', today());
     }
+
+    public function batches()
+    {
+        return $this->hasMany(Batch::class);
+    }
 }

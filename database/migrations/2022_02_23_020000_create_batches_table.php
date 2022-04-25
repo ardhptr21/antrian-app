@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Batch;
+use App\Models\Activity;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,17 +14,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('queues', function (Blueprint $table) {
+        Schema::create('batches', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 100);
-            $table->integer('age');
-            $table->string('nik', 16);
-            $table->foreignIdFor(Batch::class)->constrained();
-            $table->string('village');
-            $table->integer('neighbourhood');
-            $table->integer('hamlet');
-            $table->string('vaccine');
+            $table->foreignIdFor(Activity::class)->constrained();
             $table->integer('order');
+            $table->time('time')->nullable();
             $table->timestamps();
         });
     }
@@ -36,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('queues');
+        Schema::dropIfExists('batches');
     }
 };

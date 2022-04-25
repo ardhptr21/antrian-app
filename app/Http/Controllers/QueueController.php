@@ -40,17 +40,18 @@ class QueueController extends Controller
     {
 
         $queues = Queue::today()->get();
-        $activity = Activity::today()->first();
+        $activity = Activity::with('batches')->today()->first();
 
         if ($activity->quota === $queues->count()) {
             return back()->with('queue_error_store', 'Jumlah antrian sudah penuh');
         }
 
         $batch = 1;
-        $perBatchCount = intval(ceil($activity->quota / $activity->batch));
-        if ($activity->batch > 1) {
-            for ($i = 1; $i <= $activity->batch; $i++) {
-                $count = $queues->filter(fn ($queue) => $queue->batch == $i)->count();
+        $perBatchCount = intval(ceil($activity->quota / $activity->batches->count()));
+
+        if ($activity->batches->count() > 1) {
+            for ($i = 1; $i <= $activity->batches->count(); $i++) {
+                $count = $queues->filter(fn ($queue) => $queue->batch->order == $i)->count();
                 if ($count < $perBatchCount) {
                     $batch = $i;
                     break;
@@ -68,7 +69,7 @@ class QueueController extends Controller
             'nik' => 'required|numeric|digits:16',
         ]);
 
-        $latest_queue = $queues->filter(fn ($value) => $value->batch == $batch)->last();
+        $latest_queue = $queues->filter(fn ($value) => $value->batch->order == $batch)->last();
 
 
         if ($latest_queue) {
@@ -77,7 +78,7 @@ class QueueController extends Controller
             $validated['order'] = 1;
         }
 
-        $validated['batch'] = $batch;
+        $validated['batch_id'] = $activity->batches[$batch - 1]->id;
         $queue = Queue::create($validated);
 
         if ($queue) {

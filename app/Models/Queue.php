@@ -19,7 +19,7 @@ class Queue extends Model
         'vaccine',
         'order',
         'nik',
-        'batch'
+        'batch_id'
     ];
 
     public function scopeFilter(Builder $query, array $filters)
@@ -40,5 +40,10 @@ class Queue extends Model
     public function scopeToday(Builder $query)
     {
         return $query->whereDate('created_at', today());
+    }
+
+    public function batch()
+    {
+        return $this->belongsTo(Batch::class);
     }
 }

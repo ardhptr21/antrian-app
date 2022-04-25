@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('activities', function (Blueprint $table) {
             $table->id();
             $table->integer('quota');
-            $table->integer('batch')->default(1);
             $table->boolean('is_open')->default(true);
             $table->timestamps();
         });

@@ -41,7 +41,7 @@
                     </path>
                 </svg>
             </x-dashboard.card-overview>
-            <x-dashboard.card-overview title="Jumlah kloter" value="{{ $activity->batch }}">
+            <x-dashboard.card-overview title="Jumlah kloter" value="{{ $activity->batches->count() }}">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -57,6 +57,34 @@
                 </svg>
             </x-dashboard.card-overview>
         </div>
+
+        <div class="p-5 mt-5 bg-white rounded-lg shadow-lg">
+            <h2 class="text-xl font-bold text-indigo-500">Atur Waktu Kloter</h2>
+
+            <form method="POST" action="{{ route('batch:update') }}">
+                @csrf
+                @method('PUT')
+                <input type="hidden" name="activity_id" value="{{ $activity->id }}">
+                <div class="flex flex-wrap items-center justify-center gap-5 mt-5">
+
+                    @foreach ($activity->batches as $batch)
+                        <div class="w-full" style="flex:1">
+                            <h5 class="font-bold">Kloter {{ $batch->order }}</h5>
+                            <x-forms.input type="time" name="time[]" value="{{ $batch->time }}" />
+                        </div>
+                    @endforeach
+                </div>
+                <x-buttons.primary type="submit" class="text-white bg-indigo-500 hover:bg-indigo-400">
+                    Simpan
+                </x-buttons.primary>
+
+                @if (session('batch_success'))
+                    <x-alert.success>{{ session('batch_success') }}</x-alert.success>
+                @endif
+            </form>
+
+        </div>
+
 
         <div class="flex items-center justify-between p-5 mt-5 bg-white rounded-lg shadow-lg">
 
@@ -119,7 +147,7 @@
                                 <x-tables.td>{{ $queue->hamlet }}</x-tables.td>
                                 <x-tables.td>{{ $queue->neighbourhood }}</x-tables.td>
                                 <x-tables.td>{{ $queue->vaccine }}</x-tables.td>
-                                <x-tables.td>{{ $queue->batch }}</x-tables.td>
+                                <x-tables.td>{{ $queue->batch->order }}</x-tables.td>
                                 <x-tables.td>{{ $queue->order }}</x-tables.td>
                             </x-tables.tr-body>
                         @endforeach

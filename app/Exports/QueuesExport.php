@@ -42,7 +42,7 @@ class QueuesExport implements FromCollection, WithMapping, WithStyles, WithColum
             $queue->hamlet,
             $queue->neighbourhood,
             $queue->vaccine,
-            $queue->batch,
+            $queue->batch->order,
             $queue->order,
             $queue->created_at->format('d F Y - h:i'),
         ];

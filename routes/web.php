@@ -9,6 +9,7 @@ if (env('APP_ENV') === 'production') {
 
 use App\Http\Controllers\QueueController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BatchController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HamletController;
 use App\Http\Controllers\NeighbourhoodController;
@@ -62,6 +63,15 @@ Route::get('/auth/logout', [AuthController::class, 'logout'])->middleware('auth'
 Route::controller(ActivityController::class)->prefix('activity')->middleware('auth')->group(function () {
     Route::post('/', 'store')->name('activity:store');
     Route::put('/{activity}', 'status')->name('activity:status');
+});
+
+/**----------------------------------------------
+ * Batch Routes
+ * Base Route: /batch
+ *
+ *---------------------------------------------**/
+Route::controller(BatchController::class)->prefix('batch')->middleware('auth')->group(function () {
+    Route::put('/', 'update')->name('batch:update');
 });
 
 /**----------------------------------------------
