@@ -74,7 +74,7 @@
                             <x-tables.td>{{ $queue->hamlet }}</x-tables.td>
                             <x-tables.td>{{ $queue->neighbourhood }}</x-tables.td>
                             <x-tables.td>{{ $queue->vaccine }}</x-tables.td>
-                            <x-tables.td>{{ $queue->batch }}</x-tables.td>
+                            <x-tables.td>{{ $queue->batch->order }}</x-tables.td>
                             <x-tables.td>{{ $queue->order }}</x-tables.td>
                         </x-tables.tr-body>
                     @endforeach
